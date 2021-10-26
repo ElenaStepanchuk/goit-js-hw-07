@@ -4,24 +4,33 @@ console.log(galleryItems);
 
 const galeryElementsRefs = document.querySelector('.gallery');
  
-galeryElementsRefs.insertAdjacentHTML('beforeend', createGalleryItems);
 
-function createGalleryItems(gallery) {
-  return gallery
-    .map(({ element, index }) => {
+const createGalleryItems = galleryItems
+    .map(({ preview, original, description  }) => {
     return `<div class="gallery__item">
-    <a class="gallery__link" href="${element.original}">
+    <a class="gallery__link" href="${original}">
     <img class="gallery__image"
-      src="${element.preview}"
-      data-source="${element.original}"
-      data-index="${index}"
-      alt="${element.description}"/>
+      src="${preview}"
+      data-source="${original}"
+      alt="${description}"/>
   </a>
 </div>`;
     })
     .join('');   
-}
-
+console.log(createGalleryItems);
+galeryElementsRefs.insertAdjacentHTML('beforeend', createGalleryItems);
     
+galeryElementsRefs.addEventListener('click', hendleGalleryClick);
 
+
+function hendleGalleryClick(event) {
+      if (!event.target.classList.contains('gallery__item'))
+  {
+    return;
+      }
+  event.preventDefault();
+  const getUrlImage = event.target.dataset.source;
+  console.log(getUrlImage);
+
+}
 
