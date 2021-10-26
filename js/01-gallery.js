@@ -8,7 +8,7 @@ const galeryElementsRefs = document.querySelector('.gallery');
 const createGalleryItems = galleryItems
     .map(({ preview, original, description  }) => {
     return `<div class="gallery__item">
-    <a class="gallery__link" href="${original}">
+    <a class="gallery__link" href="${original}" data-lightbox="roadtrip">
     <img class="gallery__image"
       src="${preview}"
       data-source="${original}"
@@ -33,4 +33,13 @@ function hendleGalleryClick(event) {
   console.log(getUrlImage);
 
 }
+const instance = basicLightbox.create(`
+    <div class="modal">
+        <p>
+            Your first lightbox with just a few lines of code.
+            Yes, it's really that simple.
+        </p>
+    </div>
+`)
 
+instance.show()
