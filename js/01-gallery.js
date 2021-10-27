@@ -18,6 +18,7 @@ const createGalleryItems = galleryItems
     })
     .join('');   
 console.log(createGalleryItems);
+
 galeryElementsRefs.insertAdjacentHTML('beforeend', createGalleryItems);
     
 galeryElementsRefs.addEventListener('click', hendleGalleryClick);
@@ -30,16 +31,41 @@ function hendleGalleryClick(event) {
       }
   event.preventDefault();
   const getUrlImage = event.target.dataset.source;
-  console.log(getUrlImage);
-
-}
-const instance = basicLightbox.create(`
+    console.log(getUrlImage);
+   
+    
+    galeryElementsRefs.onclick = () => {
+   const modalWindow = basicLightbox.create(`
     <div class="modal">
-        <p>
-            Your first lightbox with just a few lines of code.
-            Yes, it's really that simple.
-        </p>
-    </div>
-`)
+       <img width="1400" height="900"
+       src="${imageSource}">
+    </div>`,
+    );
+    modalWindow.show();
 
-instance.show()
+        window.addEventListener('keydown', escKeyPress);
+      };
+}
+
+function closeModalWindow() {
+  window.removeEventListener('keydown', escKeyPress);
+}
+
+function escKeyPress(event) {
+  if (event.code === 'Escape') {
+    modalWindow.close();
+    closeModalWindow();
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
