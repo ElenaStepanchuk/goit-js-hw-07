@@ -23,49 +23,59 @@ galeryElementsRefs.insertAdjacentHTML('beforeend', createGalleryItems);
     
 galeryElementsRefs.addEventListener('click', hendleGalleryClick);
 
+let instance;
 
 function hendleGalleryClick(event) {
-      if (!event.target.classList.contains('gallery__item'))
-  {
+  if (!event.target.classList.contains('gallery__item')) {
     return;
-      }
+  }
   event.preventDefault();
   const getUrlImage = event.target.dataset.source;
-    console.log(getUrlImage);
+  console.log(getUrlImage);
    
-    
-    galeryElementsRefs.onclick = () => {
-   const modalWindow = basicLightbox.create(`
+  
+  instance = basicLightbox.create(`
     <div class="modal">
        <img width="1400" height="900"
        src="${imageSource}">
     </div>`,
-    );
-    modalWindow.show();
+    {
+    onShow: instance => {
+      window.addEventListener('keydown', onEscClick);
+    },
+  },
+  {
+    onClose: instance => {
+      window.removeEventListener('keydown', onEscClick);
+    },
+    },
+   function escKeyPress(event) {
+      if (event.code === 'Escape') {
+        modalWindow.close();
+        closeModalWindow();
+      }
+    }
+  );
+  //   galeryElementsRefs.onclick = () => {
+  //  const modalWindow = basicLightbox.create(`
+  //   <div class="modal">
+  //      <img width="1400" height="900"
+  //      src="${imageSource}">
+  //   </div>`,
+  //   );
+  //   modalWindow.show();
 
-        window.addEventListener('keydown', escKeyPress);
-      };
-}
+  //       window.addEventListener('keydown', escKeyPress);
+  //     };
+// }
 
-function closeModalWindow() {
-  window.removeEventListener('keydown', escKeyPress);
-}
+// function closeModalWindow() {
+//   window.removeEventListener('keydown', escKeyPress);
+// }
 
-function escKeyPress(event) {
-  if (event.code === 'Escape') {
-    modalWindow.close();
-    closeModalWindow();
-  }
-}
-
-
-
-
-
-
-
-
-
-
-
-
+    // function escKeyPress(event) {
+    //   if (event.code === 'Escape') {
+    //     modalWindow.close();
+    //     closeModalWindow();
+    //   }
+    // }
