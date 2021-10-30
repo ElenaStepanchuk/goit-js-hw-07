@@ -34,7 +34,7 @@ function hendleGalleryClick(event) {
   console.log(getUrlImage);
 
   
-  const instance = basicLightbox.create(`
+  instance = basicLightbox.create(`
     <div class="modal">
        <img width="1400" height="900"
        src="${imageSource}">
@@ -50,10 +50,13 @@ function hendleGalleryClick(event) {
       },
     },
   );
-  
+
+  instance.onShow();
+
   function escKeyPress(event) {
     if (event.code === 'Escape') {
       modalWindow.close();
+      instance.onClose();
     }
   }
 }
